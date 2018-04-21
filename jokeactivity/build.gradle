@@ -21,6 +21,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions 'tier'
+    productFlavors {
+        free {
+            dimension 'tier'
+        }
+        paid {
+            dimension 'tier'
+        }
+    }
 
 }
 
