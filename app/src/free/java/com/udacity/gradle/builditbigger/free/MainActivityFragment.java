@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -20,10 +21,11 @@ import com.udacity.gradle.builditbigger.R;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment {
+public class MainActivityFragment extends Fragment implements EndpointsAsyncTask.FragmentListener {
     private static final String TAG = MainActivityFragment.class.getSimpleName();
 
     private InterstitialAd mInterstitialAd;
+    private ProgressBar mLoadingProgressBar;
 
     public MainActivityFragment() {
     }
@@ -49,8 +51,10 @@ public class MainActivityFragment extends Fragment {
             @Override
             public void onAdClosed() {
                 EndpointsAsyncTask task = new EndpointsAsyncTask();
-                Pair pair = new Pair(getContext(), "my name");
+                Pair pair = new Pair(getContext(), MainActivityFragment.this);
                 task.execute(pair);
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                mLoadingProgressBar.setVisibility(View.VISIBLE);
             }
         });
 
@@ -65,6 +69,13 @@ public class MainActivityFragment extends Fragment {
                 }
             }
         });
+
+        mLoadingProgressBar = root.findViewById(R.id.loading_pb);
         return root;
+    }
+
+    @Override
+    public void hideProgressBar() {
+        mLoadingProgressBar.setVisibility(View.GONE);
     }
 }

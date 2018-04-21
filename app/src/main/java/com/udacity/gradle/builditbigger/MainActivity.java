@@ -1,11 +1,9 @@
 package com.udacity.gradle.builditbigger;
 
 import android.os.Bundle;
-import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -37,15 +35,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void tellJoke(View view) {
-        //Joker joker = new Joker();
-        //String joke = joker.getJoke();
-        //Toast.makeText(this, joke, Toast.LENGTH_SHORT).show();
-        EndpointsAsyncTask task = new EndpointsAsyncTask();
-        Pair pair = new Pair(getApplicationContext(), "my name");
-        task.execute(pair);
     }
 
 }

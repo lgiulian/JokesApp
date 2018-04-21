@@ -13,12 +13,17 @@ import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 
 import java.io.IOException;
 
-public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
+public class EndpointsAsyncTask extends AsyncTask<Pair<Context, EndpointsAsyncTask.FragmentListener>, Void, String> {
     private static MyApi myApiService = null;
     private Context context;
+    private FragmentListener mCallbackListener;
+
+    public interface FragmentListener {
+        void hideProgressBar();
+    }
 
     @Override
-    protected String doInBackground(Pair<Context, String>... params) {
+    protected String doInBackground(Pair<Context, FragmentListener>... params) {
         if(myApiService == null) {  // Only do this once
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
@@ -38,10 +43,10 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
         }
 
         context = params[0].first;
-        String name = params[0].second;
+        mCallbackListener = params[0].second;
 
         try {
-            return myApiService.sayHi(name).execute().getData();
+            return myApiService.sayHi("").execute().getData();
         } catch (IOException e) {
             return e.getMessage();
         }
@@ -49,9 +54,12 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
 
     @Override
     protected void onPostExecute(String result) {
+        mCallbackListener.hideProgressBar();
+
         //Toast.makeText(context, result, Toast.LENGTH_LONG).show();
         Intent intent = new Intent(context, com.lgiulian.jokeactivity.MainActivity.class);
         intent.putExtra(com.lgiulian.jokeactivity.MainActivity.JOKE_KEY, result);
         context.startActivity(intent);
     }
+
 }

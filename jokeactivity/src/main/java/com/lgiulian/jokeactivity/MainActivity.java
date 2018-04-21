@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
             joke = extras.getString(JOKE_KEY, "");
         }
         Log.d(TAG, joke);
-        Toast.makeText(this, joke + "**********", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, joke, Toast.LENGTH_SHORT).show();
     }
 
 }

@@ -23,7 +23,7 @@ public class JokeAndroidTest {
     @Test
     public void testOnPostExecute() throws ExecutionException, InterruptedException, TimeoutException {
         EndpointsAsyncTask task = new EndpointsAsyncTask();
-        Pair pair = new Pair(InstrumentationRegistry.getContext(), "my name");
+        Pair pair = new Pair(InstrumentationRegistry.getContext(), null);
         task.execute(pair);
         Joker joker = new Joker();
         String joke = joker.getJoke();
