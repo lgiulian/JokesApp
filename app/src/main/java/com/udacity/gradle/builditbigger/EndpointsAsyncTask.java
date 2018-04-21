@@ -52,6 +52,6 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
         //Toast.makeText(context, result, Toast.LENGTH_LONG).show();
         Intent intent = new Intent(context, com.lgiulian.jokeactivity.MainActivity.class);
         intent.putExtra(com.lgiulian.jokeactivity.MainActivity.JOKE_KEY, result);
-        //context.startActivity(intent);
+        context.startActivity(intent);
     }
 }
