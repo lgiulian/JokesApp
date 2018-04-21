@@ -59,7 +59,7 @@ task startLocalServer {
 }
 
 task runMyTests {
-    dependsOn ':app:connectedCheck'
+    dependsOn ':app:connectedAndroidTest'
     mustRunAfter "startLocalServer"
 }
 
