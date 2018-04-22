@@ -46,7 +46,7 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, EndpointsAsyncTa
         mCallbackListener = params[0].second;
 
         try {
-            return myApiService.sayHi("").execute().getData();
+            return myApiService.getJoke().execute().getData();
         } catch (IOException e) {
             return e.getMessage();
         }

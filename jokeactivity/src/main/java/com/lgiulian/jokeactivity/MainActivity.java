@@ -6,7 +6,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = MainActivity.class.getSimpleName();
     public static final String JOKE_KEY = "JOKE_KEY";
 
     @Override
@@ -14,13 +13,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_joke);
 
-        Bundle extras = getIntent().getExtras();
-        String joke = null;
-        if (extras != null && extras.containsKey(JOKE_KEY)) {
-            joke = extras.getString(JOKE_KEY, "");
+        if (savedInstanceState == null) {
+            // During initial setup, plug in the fragment.
+            MainActivityFragment fragment = new MainActivityFragment();
+            fragment.setArguments(getIntent().getExtras());
+            getSupportFragmentManager().beginTransaction().add(R.id.fragment, fragment).commit();
         }
-        Log.d(TAG, joke);
-        Toast.makeText(this, joke, Toast.LENGTH_SHORT).show();
     }
 
 }
